@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="app_name">DashClock Hotspot Extension</string>
+  <string name="extension_label">Hotspot</string>
+  <string name="extension_description">Displays your current hotspot status</string>
+  <string name="toggle_hotspot_dialog_title">Toggle Hotspot</string>
+  <string name="toggle_hotspot_to_disabled_title">Disable Hotspot?</string>
+  <string name="toggle_hotspot_to_enabled_title">Enable Hotspot?</string>
+  <string name="toggle_hotspot_affirmative_button">OK</string>
+  <string name="toggle_hotspot_negative_button">Cancel</string>
+
+  <string name="extension_expanded_title_connected" formatted="false">Hotspot %s</string>
+  <string name="extension_expanded_title_not_connected" formatted="false">Hotspot %s</string>
+  <string name="extension_expanded_body_connected_clients" formatted="false">Connected client(s): %s</string>
+
+  <string name="hotspot_status_enabled">Enabled</string>
+  <string name="hotspot_status_connected">Connected</string>
+  <string name="hotspot_status_disabled">Disabled</string>
+  <string name="hotspot_status_disabling">Disabling...</string>
+  <string name="hotspot_status_unknown">Unknown</string>
+
+  <string name="hotspot_device_name_unknown">Unknown</string>
+
+  <string name="extension_settings_title">DashClock Hotspot Settings</string>
+  <string name="pref_show_only_when_connected_title">Show only when connected?</string>
+  <string name="pref_use_dynamic_signal_strength_icon_title">Enable signal strength icons?</string>
+
+  <string name="action_settings">Settings</string>
+  <string name="pref_category_labs">Labs</string>
+  <string name="pref_category_display">Display</string>
+  <string name="pref_use_dynamic_signal_strength_icon_summary">The extensions icon updates to show your signal strength.
+    Note: may have performance overhead particularly when DashClock is running in expanded mode
+  </string>
+  <string name="toggle_hotspot_to_disabled_message">Note: disabling your Wi-Fi hotspot will enable Wi-FI</string>
+  <string name="toggle_hotspot_to_enabled_message">Note: enabling your Wi-Fi hotspot will disable Wi-FI</string>
+</resources>
