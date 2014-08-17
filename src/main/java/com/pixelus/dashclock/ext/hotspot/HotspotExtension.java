@@ -88,7 +88,7 @@ public class HotspotExtension extends DashClockExtension {
 
     // Is wifi disabled?
     if (!wifiApManager.isWifiApEnabled()) {
-      return R.drawable.ic_signal_off;
+      return R.drawable.ic_hotspot_off;
     }
 
     return R.drawable.ic_launcher;
