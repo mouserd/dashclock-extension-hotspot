@@ -19,7 +19,7 @@ public class WifiApConnectedClientsBroadcastReceiver extends BroadcastReceiver {
   @Override
   public void onReceive(final Context context, final Intent intent) {
 
-    WifiApManager wifiApManager = new WifiApManager(hotspotExtension);
-    wifiApManager.getClientList(true, new WifiApClientListener(context));
+    final WifiApManager wifiApManager = new WifiApManager(hotspotExtension);
+    wifiApManager.getClientList(true, 1000, new WifiApClientListener(context));
   }
 }
