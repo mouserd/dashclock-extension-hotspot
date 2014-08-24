@@ -10,6 +10,7 @@ import com.whitebyte.wifihotspotutils.WifiApManager;
 import static com.pixelus.dashclock.ext.hotspot.HotspotExtension.UPDATE_REASON_WIFI_AP_CONNECTED;
 import static com.pixelus.dashclock.ext.hotspot.HotspotExtension.UPDATE_REASON_WIFI_AP_DISCONNECTED;
 import static com.whitebyte.wifihotspotutils.WIFI_AP_STATE.WIFI_AP_STATE_ENABLED;
+import static com.whitebyte.wifihotspotutils.WIFI_AP_STATE.WIFI_AP_STATE_ENABLING;
 
 public class WifiApConnectionChangedBroadcastReceiver extends BroadcastReceiver {
 
@@ -32,7 +33,9 @@ public class WifiApConnectionChangedBroadcastReceiver extends BroadcastReceiver 
 
       // If this intent has resulted in the WIFI_AP being enabled - then trigger clients to be scanned.
       final WifiApManager wifiApManager = new WifiApManager(extension);
-      if (wifiApManager.getWifiApState().equals(WIFI_AP_STATE_ENABLED)) {
+      if (wifiApManager.getWifiApState().equals(WIFI_AP_STATE_ENABLED)
+          || wifiApManager.getWifiApState().equals(WIFI_AP_STATE_ENABLING)) {
+
         updateReason = UPDATE_REASON_WIFI_AP_CONNECTED;
       }
 
