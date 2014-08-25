@@ -3,11 +3,14 @@ package com.pixelus.dashclock.ext.hotspot.broadcast;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import com.pixelus.dashclock.ext.hotspot.HotspotExtension;
 import com.pixelus.dashclock.ext.hotspot.WifiApClientListener;
 import com.whitebyte.wifihotspotutils.WifiApManager;
 
 public class WifiApConnectedClientsBroadcastReceiver extends BroadcastReceiver {
+
+  private static final String TAG = WifiApConnectedClientsBroadcastReceiver.class.getSimpleName();
 
   private HotspotExtension hotspotExtension;
 
@@ -19,7 +22,24 @@ public class WifiApConnectedClientsBroadcastReceiver extends BroadcastReceiver {
   @Override
   public void onReceive(final Context context, final Intent intent) {
 
-    final WifiApManager wifiApManager = new WifiApManager(hotspotExtension);
-    wifiApManager.getClientList(true, 1000, new WifiApClientListener(context));
+    Log.d(TAG, "Received " + intent.getAction() + " action");
+
+    new Thread(new Runnable() {
+
+      public void run() {
+
+        try {
+          Thread.sleep(200);  // Short sleep here ensures a recently connected/disconnected client has had time to
+                              // complete since the AP_STATE_CHANGED broadcast was received.
+
+          final WifiApManager wifiApManager = new WifiApManager(hotspotExtension);
+          wifiApManager.getClientList(true, 500, new WifiApClientListener(context));
+        } catch (InterruptedException e) {
+          Log.e(TAG, "Interrupted while runnable was sleeping.");
+        }
+      }
+    }).start();
+
+
   }
 }
