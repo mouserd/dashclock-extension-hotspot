@@ -1,9 +1,12 @@
 package com.pixelus.dashclock.ext.hotspot.builder;
 
 import android.content.Context;
+import android.util.Log;
+import com.pixelus.dashclock.ext.hotspot.HotspotExtension;
 import com.pixelus.dashclock.ext.hotspot.R;
 import com.whitebyte.wifihotspotutils.WifiApManager;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class HotspotMessageBuilder {
@@ -13,6 +16,7 @@ public class HotspotMessageBuilder {
   private WifiApManager wifiApManager;
   private Context context;
   private List<CharSequence> wifiApClients;
+  private int updateReason;
 
   public HotspotMessageBuilder withContext(final Context context) {
     this.context = context;
@@ -28,6 +32,21 @@ public class HotspotMessageBuilder {
     if (wifiApClients != null) {
       this.wifiApClients = wifiApClients;
     }
+    return this;
+  }
+
+  public HotspotMessageBuilder withUpdateReason(int updateReason) {
+    this.updateReason = updateReason;
+
+    if (updateReason == HotspotExtension.UPDATE_REASON_WIFI_AP_CONNECTED) {
+      Log.d(TAG, "Update reason is connecting - initialising the wifiApClient list to 0.");
+      wifiApClients = Arrays.asList();
+    } else if (updateReason == HotspotExtension.UPDATE_REASON_WIFI_AP_DISCONNECTED) {
+
+      Log.d(TAG, "Update reason is disconnecting - resetting the wifiApClient list.");
+      wifiApClients = null;
+    }
+
     return this;
   }
 

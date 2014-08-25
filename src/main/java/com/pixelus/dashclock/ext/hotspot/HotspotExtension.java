@@ -2,8 +2,6 @@ package com.pixelus.dashclock.ext.hotspot;
 
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import com.crashlytics.android.Crashlytics;
 import com.google.android.apps.dashclock.api.DashClockExtension;
 import com.google.android.apps.dashclock.api.ExtensionData;
@@ -13,7 +11,6 @@ import com.pixelus.dashclock.ext.hotspot.broadcast.WifiApConnectionChangedBroadc
 import com.pixelus.dashclock.ext.hotspot.builder.HotspotMessageBuilder;
 import com.whitebyte.wifihotspotutils.WifiApManager;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class HotspotExtension extends DashClockExtension {
@@ -33,6 +30,8 @@ public class HotspotExtension extends DashClockExtension {
 
   private WifiApManager wifiApManager;
 
+  private HotspotMessageBuilder builder;
+
   @Override
   public void onCreate() {
     super.onCreate();
@@ -40,6 +39,9 @@ public class HotspotExtension extends DashClockExtension {
     Crashlytics.start(this);
 
     wifiApManager = new WifiApManager(this);
+    builder = new HotspotMessageBuilder()
+        .withContext(this)
+        .withWifiApManager(wifiApManager);
 
     // On create, register to receive any changes to the wifi settings.  This ensures that we can
     // update our extension status based on us toggling the state or something externally.
@@ -57,17 +59,8 @@ public class HotspotExtension extends DashClockExtension {
 
   public void onUpdateData(int updateReason, List<CharSequence> clients) {
 
-    if (updateReason == UPDATE_REASON_WIFI_AP_CONNECTED) {
-      clients = new ArrayList<CharSequence>();
-    } else if (updateReason == UPDATE_REASON_WIFI_AP_DISCONNECTED) {
-      clients = null;
-    }
-
-    final SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
-    final HotspotMessageBuilder builder = new HotspotMessageBuilder()
-        .withContext(this)
-        .withWifiApManager(wifiApManager)
-        .withWifiApClients(clients);
+    builder.withWifiApClients(clients)
+        .withUpdateReason(updateReason);
 
     final String status = builder.buildStatusMessage();
     final int icon = getIcon(wifiApManager);
