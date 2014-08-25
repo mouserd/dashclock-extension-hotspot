@@ -31,6 +31,9 @@ public class HotspotExtension extends DashClockExtension {
   private WifiApManager wifiApManager;
 
   private HotspotMessageBuilder builder;
+  private WifiApConnectionChangedBroadcastReceiver wifiApConnectionChangedBroadcastReceiver;
+  private WifiApConnectedClientsBroadcastReceiver wifiApConnectedClientsBroadcastReceiver;
+  private WifiApClientsScanCompleteBroadcastReceiver wifiApClientsScanCompleteBroadcastReceiver;
 
   @Override
   public void onCreate() {
@@ -43,12 +46,24 @@ public class HotspotExtension extends DashClockExtension {
         .withContext(this)
         .withWifiApManager(wifiApManager);
 
-    // On create, register to receive any changes to the wifi settings.  This ensures that we can
+    // On create, register to receive any changes to the wifi access point(AP) settings.  This ensures that we can
     // update our extension status based on us toggling the state or something externally.
+    wifiApConnectionChangedBroadcastReceiver = new WifiApConnectionChangedBroadcastReceiver(this);
+    wifiApConnectedClientsBroadcastReceiver = new WifiApConnectedClientsBroadcastReceiver(this);
+    wifiApClientsScanCompleteBroadcastReceiver = new WifiApClientsScanCompleteBroadcastReceiver(this);
 
-    registerReceiver(new WifiApConnectionChangedBroadcastReceiver(this), new IntentFilter(WIFI_AP_STATE_CHANGED));
-    registerReceiver(new WifiApConnectedClientsBroadcastReceiver(this), new IntentFilter(WIFI_AP_CLIENT_STATUS_CHANGED));
-    registerReceiver(new WifiApClientsScanCompleteBroadcastReceiver(this), new IntentFilter(WIFI_AP_CLIENTS_SCANNED));
+    registerReceiver(wifiApConnectionChangedBroadcastReceiver, new IntentFilter(WIFI_AP_STATE_CHANGED));
+    registerReceiver(wifiApConnectedClientsBroadcastReceiver, new IntentFilter(WIFI_AP_STATE_CHANGED));
+    registerReceiver(wifiApConnectedClientsBroadcastReceiver, new IntentFilter(WIFI_AP_CLIENT_STATUS_CHANGED));
+    registerReceiver(wifiApClientsScanCompleteBroadcastReceiver, new IntentFilter(WIFI_AP_CLIENTS_SCANNED));
+  }
+
+  @Override
+  public void onDestroy() {
+
+    unregisterReceiver(wifiApConnectionChangedBroadcastReceiver);
+    unregisterReceiver(wifiApConnectedClientsBroadcastReceiver);
+    unregisterReceiver(wifiApClientsScanCompleteBroadcastReceiver);
   }
 
   @Override
