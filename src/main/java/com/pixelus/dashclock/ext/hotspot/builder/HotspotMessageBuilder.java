@@ -55,14 +55,6 @@ public class HotspotMessageBuilder {
   }
 
   public String buildExpandedTitleMessage() {
-
-    if (wifiApManager == null) {
-
-      return context.getString(R.string.extension_expanded_title_not_connected,
-          context.getString(R.string.hotspot_status_unknown));
-    }
-
-    // TODO Sort out whether 2nd message param is required.
     return context.getString(R.string.extension_expanded_title_connected, getWifiApStatus());
   }
 
@@ -81,15 +73,6 @@ public class HotspotMessageBuilder {
 
   public String buildExpandedBodyMessage() {
     if (wifiApManager != null && wifiApManager.isWifiApEnabled()) {
-
-//      String connectedClientsMessage = "";
-//      final Iterator<CharSequence> wifiApClientIterator = wifiApClients.iterator();
-//      while (wifiApClientIterator.hasNext()) {
-//        connectedClientsMessage += " > " + wifiApClientIterator.next();
-//        if (wifiApClientIterator.hasNext()) {
-//          connectedClientsMessage += "\n";
-//        }
-//      }
 
       return context.getString(R.string.extension_expanded_body_connected_clients,
           (wifiApClients == null ? "n/a" : wifiApClients.size()));

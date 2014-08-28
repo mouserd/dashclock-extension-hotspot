@@ -10,7 +10,6 @@
   <string name="toggle_hotspot_negative_button">Cancel</string>
 
   <string name="extension_expanded_title_connected" formatted="false">Hotspot %s</string>
-  <string name="extension_expanded_title_not_connected" formatted="false">Hotspot %s</string>
   <string name="extension_expanded_body_connected_clients" formatted="false">Connected client(s): %s</string>
 
   <string name="hotspot_status_enabled">Enabled</string>
