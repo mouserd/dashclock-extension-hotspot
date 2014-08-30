@@ -23,8 +23,12 @@ public class WifiApClientsScanCompleteBroadcastReceiver extends BroadcastReceive
   @Override
   public synchronized void onReceive(Context context, Intent intent) {
 
-
-    extension.onUpdateData(UPDATE_REASON_CLIENT_SCAN,
-        Arrays.asList(intent.getCharSequenceArrayExtra(HotspotExtension.WIFI_AP_CLIENTS_SCANNED_EXTRA)));
+    try {
+      extension.onUpdateData(UPDATE_REASON_CLIENT_SCAN,
+          Arrays.asList(intent.getCharSequenceArrayExtra(HotspotExtension.WIFI_AP_CLIENTS_SCANNED_EXTRA)));
+    } catch (NullPointerException e) {
+      // Every so often an exception seems to be thrown by the DashClock api.
+      // It seems that this exception is timing related.
+    }
   }
 }

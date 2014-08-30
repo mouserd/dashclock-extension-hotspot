@@ -21,6 +21,11 @@ public class SettingsUpdatedBroadcastReceiver extends BroadcastReceiver {
   public synchronized void onReceive(Context context, Intent intent) {
 
     Log.d(TAG, "User updated extension settings...");
-    extension.onUpdateData(HotspotExtension.UPDATE_REASON_FORCED);
+    try {
+      extension.onUpdateData(HotspotExtension.UPDATE_REASON_FORCED);
+    } catch (NullPointerException e) {
+      // Every so often an exception seems to be thrown by the DashClock api.
+      // It seems that this exception is timing related.
+    }
   }
 }
