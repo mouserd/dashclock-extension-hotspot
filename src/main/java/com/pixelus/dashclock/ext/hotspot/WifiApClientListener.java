@@ -21,7 +21,6 @@ public class WifiApClientListener implements FinishScanListener {
     this.context = context;
   }
 
-  @Override
   public void onFinishScan(ArrayList<ClientScanResult> clients) {
 
     Log.d(TAG, "Finished scanning for clients: " + clients.size());

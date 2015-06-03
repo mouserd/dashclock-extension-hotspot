@@ -52,7 +52,6 @@ public class ToggleHotspotFragment extends DialogFragment {
 
   private class DialogClickListener implements DialogInterface.OnClickListener {
 
-    @Override
     public void onClick(final DialogInterface dialog, final int id) {
 
       Log.d(TAG, "Handling " + (BUTTON_POSITIVE == id ? "affirmative" : "negative") + " click event");
