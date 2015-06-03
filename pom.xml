@@ -118,6 +118,7 @@
             <debuggable>true</debuggable>
           </manifest>
           <androidManifestFile>${project.build.directory}/filtered-manifest/AndroidManifest.xml</androidManifestFile>
+          <genDirectory>${project.basedir}/gen</genDirectory>
         </configuration>
         <executions>
           <!--<execution>-->
