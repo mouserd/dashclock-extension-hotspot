@@ -42,15 +42,13 @@ the Google Playstore.  As such, the release build process will ensure that the c
 (using proguard), signed (certificate not included with this repo), and zip-aligned.  The resulting 
 `target/hotspot-signed-aligned.apk` is then ready for upload into the playstore.  To initiate a new release, simply:
 
-1. Bump maven version:  
-   Update `pom.xml` to increment the applications version  
-   
-2. Bump the android version:  
-   Update `AndroidManifest.xml` so that the application `versionName` and `versionCode` are incremented appropriately.
-     
-3. Commit the changes from steps 1 and 2 to source control  
+1. Bump maven application version and versionCode:  
+   Update `pom.xml` to increment <project>'s <version> and <project.versionCode> values 
+        
+3. Commit the changes to source control  
 
 4. Build a **release** apk using maven:  
    ```
-   mvn clean install -P release
+   mvn clean package -P release
    ```
+ Note: a relevant profile should exist in your ~/.m2/settings.xml that defines the key signing properties used by the jarsigner
