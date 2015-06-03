@@ -29,7 +29,7 @@ public class WifiApConnectedClientsBroadcastReceiver extends BroadcastReceiver {
       public void run() {
 
         try {
-          Thread.sleep(1000);  // Short sleep here ensures a recently connected/disconnected client has had time to
+          Thread.sleep(1500);  // Short sleep here ensures a recently connected/disconnected client has had time to
                               // complete since the AP_STATE_CHANGED broadcast was received.
 
           final WifiApManager wifiApManager = new WifiApManager(hotspotExtension);
